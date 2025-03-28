@@ -9,7 +9,7 @@ const ContactForm = () => {
   const onSubmit = async (data) => {
     console.log(data);
     googleSheet(data)
-    //sendWA(data)
+    sendWA(data)
   };
 
   const googleSheet = async (data) => {
@@ -22,11 +22,11 @@ const ContactForm = () => {
     });
   }
 
-  // const sendWA = (data) => {
-  //   const message = `Nuevo mensaje de ${data.name} ${data.lastName} (${data.email}, ${data.whatsapp}): ${data.message}`;
-  //   const whatsappLink = `https://wa.me/5492974140952?text=${encodeURIComponent(message)}`;
-  //   window.open(whatsappLink, '_blank');
-  // }
+  const sendWA = (data) => {
+    const message = `Nuevo mensaje de ${data.name} ${data.lastName} (${data.email}, ${data.whatsapp}): ${data.message}`;
+    const whatsappLink = `https://wa.me/5492974140952?text=${encodeURIComponent(message)}`;
+    window.open(whatsappLink, '_blank');
+  }
 
   return (
     <div>
