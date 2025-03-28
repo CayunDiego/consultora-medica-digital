@@ -65,7 +65,7 @@ const ContactForm = () => {
             <textarea id="message" {...register('message', { required: 'Mensaje es requerido' })}></textarea>
             {errors.message && <p className="error-message">{errors.message.message}</p>}
           </div>
-          <button type="submit">Enviar</button>
+          <button type="submit">SÍ QUIERO UNA WEB ATRAE PACIENTES</button>
         </form>
       ) : (
         <div className="contact-form success">
