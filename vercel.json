@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+      {
+        "source": "/contact-form",
+        "destination": "/contact-form"
+      }
+    ]
+  }
