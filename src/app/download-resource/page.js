@@ -10,7 +10,6 @@ const DownloadResource = () => {
 
   const onSubmit = (data) => {
     console.log(data)
-    // Aquí puedes agregar la lógica para descargar el PDF
     downloadPDF()
     googleSheet(data)
     setFormVisible(false);
@@ -57,22 +56,22 @@ const DownloadResource = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="download-form">
           <div className="form-group">
             <label htmlFor="name">Nombre</label>
-            <input id="name" {...register('name', { required: 'Nombre es requerido' })} />
+            <input placeholder="Jane" id="name" {...register('name', { required: 'Nombre es requerido' })} />
             {errors.name && <p className="error-message">{errors.name.message}</p>}
           </div>
           <div className="form-group">
             <label htmlFor="lastName">Apellido</label>
-            <input id="lastName" {...register('lastName', { required: 'Apellido es requerido' })} />
+            <input placeholder="Smith" id="lastName" {...register('lastName', { required: 'Apellido es requerido' })} />
             {errors.lastName && <p className="error-message">{errors.lastName.message}</p>}
           </div>
           <div className="form-group">
             <label htmlFor="email">Email para contactarte</label>
-            <input id="email" {...register('email', { required: 'Email es requerido', pattern: { value: /^\S+@\S+$/i, message: 'Email inválido' } })} />
+            <input placeholder='email@email.com' id="email" {...register('email', { required: 'Email es requerido', pattern: { value: /^\S+@\S+$/i, message: 'Email inválido' } })} />
             {errors.email && <p className="error-message">{errors.email.message}</p>}
           </div>
           <div className="form-group">
             <label htmlFor="whatsapp">Número de WhatsApp (opcional)</label>
-            <input id="whatsapp" {...register('whatsapp')} />
+            <input placeholder='351 123 156' id="whatsapp" {...register('whatsapp')} />
             {errors.whatsapp && <p className="error-message">{errors.whatsapp.message}</p>}
           </div>
           <button type="submit">Descargar PDF</button>
@@ -84,7 +83,7 @@ const DownloadResource = () => {
                 src="https://www.iconpacks.net/icons/2/free-check-mark-icon-3280-thumb.png"
                 alt="Descripción de la imagen"
               />
-            <p>¡Gracias por la descarga</p>
+            <p>¡Gracias por la descarga!</p>
           </div>
           <button onClick={handleNewForm}>Volver</button>
         </div>
