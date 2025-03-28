@@ -1,17 +1,25 @@
 'use client';
-import React from 'react'
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form'
 import './DownloadResource.scss'
 
 const DownloadResource = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const [formVisible, setFormVisible] = useState(true);
+  
 
   const onSubmit = (data) => {
     console.log(data)
     // Aquí puedes agregar la lógica para descargar el PDF
     downloadPDF()
     googleSheet(data)
+    setFormVisible(false);
   }
+
+  const handleNewForm = () => {
+    reset();
+    setFormVisible(true);
+  };
 
   const googleSheet = async (data) => {
     await fetch('/api/download-resource', {
@@ -45,29 +53,42 @@ const DownloadResource = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)} className="download-form">
-        <div className="form-group">
-          <label htmlFor="name">Nombre</label>
-          <input id="name" {...register('name', { required: 'Nombre es requerido' })} />
-          {errors.name && <p className="error-message">{errors.name.message}</p>}
+      {formVisible ? (
+        <form onSubmit={handleSubmit(onSubmit)} className="download-form">
+          <div className="form-group">
+            <label htmlFor="name">Nombre</label>
+            <input id="name" {...register('name', { required: 'Nombre es requerido' })} />
+            {errors.name && <p className="error-message">{errors.name.message}</p>}
+          </div>
+          <div className="form-group">
+            <label htmlFor="lastName">Apellido</label>
+            <input id="lastName" {...register('lastName', { required: 'Apellido es requerido' })} />
+            {errors.lastName && <p className="error-message">{errors.lastName.message}</p>}
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email para contactarte</label>
+            <input id="email" {...register('email', { required: 'Email es requerido', pattern: { value: /^\S+@\S+$/i, message: 'Email inválido' } })} />
+            {errors.email && <p className="error-message">{errors.email.message}</p>}
+          </div>
+          <div className="form-group">
+            <label htmlFor="whatsapp">Número de WhatsApp (opcional)</label>
+            <input id="whatsapp" {...register('whatsapp')} />
+            {errors.whatsapp && <p className="error-message">{errors.whatsapp.message}</p>}
+          </div>
+          <button type="submit">Descargar PDF</button>
+        </form>
+      ) : (
+        <div className="download-form success">
+          <div className='msj-success'>
+            <img
+                src="https://www.iconpacks.net/icons/2/free-check-mark-icon-3280-thumb.png"
+                alt="Descripción de la imagen"
+              />
+            <p>¡Gracias por la descarga</p>
+          </div>
+          <button onClick={handleNewForm}>Volver</button>
         </div>
-        <div className="form-group">
-          <label htmlFor="lastName">Apellido</label>
-          <input id="lastName" {...register('lastName', { required: 'Apellido es requerido' })} />
-          {errors.lastName && <p className="error-message">{errors.lastName.message}</p>}
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email para contactarte</label>
-          <input id="email" {...register('email', { required: 'Email es requerido', pattern: { value: /^\S+@\S+$/i, message: 'Email inválido' } })} />
-          {errors.email && <p className="error-message">{errors.email.message}</p>}
-        </div>
-        <div className="form-group">
-          <label htmlFor="whatsapp">Número de WhatsApp (opcional)</label>
-          <input id="whatsapp" {...register('whatsapp')} />
-          {errors.whatsapp && <p className="error-message">{errors.whatsapp.message}</p>}
-        </div>
-        <button type="submit">Descargar PDF</button>
-      </form>
+      )}
     </div>
   )
 }
