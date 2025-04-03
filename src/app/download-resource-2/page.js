@@ -1,15 +1,15 @@
 'use client';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form'
-import './DownloadResource.scss'
+import './DownloadResource-2.scss'
 
-const DownloadResource = () => {
+const DownloadResource2 = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const [formVisible, setFormVisible] = useState(true);
   
 
   const onSubmit = (data) => {
-    data.doc = 'Ebook Errores'
+    data.doc = 'Ebook Redes'
     downloadPDF()
     googleSheet(data)
     setFormVisible(false);
@@ -32,7 +32,7 @@ const DownloadResource = () => {
 
   const downloadPDF = async () => {
     try {
-      const pdfUrl = 'https://framerusercontent.com/assets/mpO0gLCYhtmp1nOoshVq3hr3lzc.pdf';
+      const pdfUrl = 'https://framerusercontent.com/assets/gyvP7t7pg5xWmdLf19m3yeSoKac.pdf';
       const response = await fetch(pdfUrl);
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -41,7 +41,7 @@ const DownloadResource = () => {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = '3 Errores Legales que Todo Cirujano Plástico debe Evitar en su Web - Ebook.pdf';
+      a.download = 'Cómo Cirujanos Plásticos en Argentina Consiguen Más Pacientes con Instagram, TikTok y WhatsApp.pdf';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -92,4 +92,4 @@ const DownloadResource = () => {
   )
 }
 
-export default DownloadResource
+export default DownloadResource2
